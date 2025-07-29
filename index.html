@@ -1,35 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>自動申請フォーム</title>
-</head>
-<body>
-  <h1>自動申請を準備中...</h1>
+<!-- index.html -->
+<form id="myForm" action="https://chusen.gkuc.net/group_first_lottery" method="POST">
+  <input name="name" placeholder="名前">
+  <input name="email" placeholder="メールアドレス">
+  <button type="submit">送信</button>
+</form>
 
-  <script>
-    // URLのクエリパラメータを取得
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('name');
-    const targetUrl = params.get('url');  // 例: フォームのURLを指定できる
-
-    if (name && targetUrl) {
-      // 自動的に指定フォームを開く or iframe表示など
-      // 方法1: リダイレクトして送る
-      const filledUrl = `${targetUrl}?name=${encodeURIComponent(name)}`;
-      window.location.href = filledUrl;
-
-      // 方法2: iframeで表示（任意）
-      /*
-      const iframe = document.createElement('iframe');
-      iframe.src = filledUrl;
-      iframe.width = "100%";
-      iframe.height = "800";
-      document.body.appendChild(iframe);
-      */
-    } else {
-      document.body.innerHTML += '<p>URLが正しくありません</p>';
-    }
-  </script>
-</body>
-</html>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  for (const [key, value] of params.entries()) {
+    const input = document.querySelector(`[name="${key}"]`);
+    if (input) input.value = value;
+  }
+</script>
