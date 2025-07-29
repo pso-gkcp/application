@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My PWA</title>
-  <link rel="manifest" href="manifest.json" />
+  <meta charset="UTF-8">
+  <title>自動申請フォーム</title>
 </head>
 <body>
-  <h1>これはPWAです！</h1>
+  <h1>自動申請を準備中...</h1>
+
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js").then(() => {
-        console.log("Service Worker 登録完了");
-      });
+    // URLのクエリパラメータを取得
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const targetUrl = params.get('url');  // 例: フォームのURLを指定できる
+
+    if (name && targetUrl) {
+      // 自動的に指定フォームを開く or iframe表示など
+      // 方法1: リダイレクトして送る
+      const filledUrl = `${targetUrl}?name=${encodeURIComponent(name)}`;
+      window.location.href = filledUrl;
+
+      // 方法2: iframeで表示（任意）
+      /*
+      const iframe = document.createElement('iframe');
+      iframe.src = filledUrl;
+      iframe.width = "100%";
+      iframe.height = "800";
+      document.body.appendChild(iframe);
+      */
+    } else {
+      document.body.innerHTML += '<p>URLが正しくありません</p>';
     }
   </script>
 </body>
