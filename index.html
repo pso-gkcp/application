@@ -1,14 +1,16 @@
-<!-- index.html -->
-<form id="myForm" action="https://chusen.gkuc.net/group_first_lottery" method="POST">
-  <input name="name" placeholder="名前">
-  <input name="email" placeholder="メールアドレス">
-  <button type="submit">送信</button>
+<form id="myForm" action="https://chusen.gkuc.net/group_first_lottery" method="POST" onsubmit="return false;">
+  <input id="name" name="name" />
+  <input type="submit" value="送信" />
 </form>
 
 <script>
+  // URLパラメータから値を入れる例
   const params = new URLSearchParams(window.location.search);
-  for (const [key, value] of params.entries()) {
-    const input = document.querySelector(`[name="${key}"]`);
-    if (input) input.value = value;
+  const name = params.get('name');
+  if (name) {
+    document.getElementById('name').value = name;
   }
+
+  // 送信抑止してるので、ボタン押しても送信されません
 </script>
+
